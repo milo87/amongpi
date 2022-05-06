@@ -51,6 +51,8 @@ def main() -> None:
     #    # #
     amongi_sprite = Sprite([[0, 1, 1, 1], [1, 1, 0, 0], [1, 1, 1, 1], [0, 1, 0, 1]])
 
+    imposters = []
+
     for index, _ in enumerate(binary_pi[: -amongi_sprite.width]):
         row = [int(binary_pi[index + i]) for i in range(amongi_sprite.width)]
         if row == amongi_sprite.data[0]:
@@ -67,9 +69,13 @@ def main() -> None:
 
             if candidate_sprite == amongi_sprite:
                 print(f"Found one! Index {index} is sus...")
-                Sprite(
+                imposter = Sprite(
                     [r for r in chunks(binary_pi[index - 2 * 4 : index + 6 * 4], 4)]
-                ).render()
+                )
+                imposter.render()
+                imposters.append(imposter)
+
+    print(f"Found {len(imposters)} imposters!")
 
 
 if __name__ == "__main__":
